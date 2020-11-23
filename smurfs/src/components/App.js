@@ -1,6 +1,6 @@
 // Import Dependencies
 import React, { Component } from "react";
-import axios from "axios";
+import { connect } from "react-redux";
 
 // Import Assets
 import "./App.css";
@@ -8,7 +8,14 @@ import "./App.css";
 // Import Components
 import SmurfsList from "./SmurfsList";
 
+// Import Actions
+import { loadSmurfs } from "../store/actions";
+
 class App extends Component {
+  componentDidMount = () => {
+    this.props.loadSmurfs();
+  };
+
   render() {
     return (
       <div className='App'>
@@ -23,4 +30,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default connect("", { loadSmurfs })(App);

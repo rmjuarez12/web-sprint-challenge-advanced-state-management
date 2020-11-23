@@ -5,6 +5,7 @@ import { IS_LOADING, DATA_LOAD_SUCCESS, DATA_LOAD_ERROR } from "../actions";
 const initialState = {
   smurfs: [],
   isLoading: false,
+  errors: "",
 };
 
 export default (state = initialState, { type, payload }) => {
@@ -21,6 +22,13 @@ export default (state = initialState, { type, payload }) => {
         ...state,
         isLoading: false,
         smurfs: payload,
+      };
+
+    case DATA_LOAD_ERROR:
+      return {
+        ...state,
+        isLoading: false,
+        errors: payload,
       };
     default:
       return state;

@@ -7,15 +7,14 @@ import { loadSmurfs } from "../store/actions";
 
 // Import Components
 import Smurf from "./Smurf";
+import SmurfForm from "./SmurfForm";
 
 function SmurfsList(props) {
-  useEffect(() => {
-    props.loadSmurfs();
-  }, []);
-
   return (
     <div>
       <h3>Smurfs List</h3>
+
+      <SmurfForm />
 
       <ul>
         {props.smurfs.length
