@@ -1,10 +1,5 @@
 // Import Dependencies
 import React, { useState } from "react";
-import { connect } from "react-redux";
-import axios from "axios";
-
-// Import Actions
-import { loadSmurfs } from "../store/actions";
 
 function SmurfForm(props) {
   // Set initial state for form info
@@ -29,17 +24,7 @@ function SmurfForm(props) {
   const handleFormSubmission = (e) => {
     e.preventDefault();
 
-    // Add smurf
-    const apiURL = "http://localhost:3333/smurfs";
-
-    axios
-      .post(apiURL, smurfInfo)
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    props.addSmurf(smurfInfo);
   };
 
   return (
@@ -78,4 +63,4 @@ function SmurfForm(props) {
   );
 }
 
-export default connect("", { loadSmurfs })(SmurfForm);
+export default SmurfForm;

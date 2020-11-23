@@ -12,8 +12,6 @@ export const loadSmurfs = (smurf) => (dispatch) => {
     type: IS_LOADING,
   });
 
-  console.log("Smurfs Loading");
-
   // Set the URL for the API endpoint to get the data
   const apiURL = "http://localhost:3333/smurfs";
 
@@ -35,5 +33,47 @@ export const loadSmurfs = (smurf) => (dispatch) => {
         type: DATA_LOAD_ERROR,
         payload: error,
       });
+    });
+};
+
+// Function to add smurf
+export const addSmurf = (smurf) => (dispatch) => {
+  // Set the URL for the API endpoint to post the data
+  const apiURL = "http://localhost:3333/smurfs";
+
+  // Post the data
+  axios
+    .post(apiURL, smurf)
+    .then((response) => {
+      dispatch({
+        type: DATA_LOAD_SUCCESS,
+        payload: response.data,
+      });
+    })
+    .catch((error) => {
+      const errorMessage = error.response.data.Error;
+      dispatch({
+        type: DATA_LOAD_ERROR,
+        payload: errorMessage,
+      });
+    });
+};
+
+// Function to delete smurf
+export const deleteSmurf = (smurfId) => (dispatch) => {
+  // Set the URL for the API endpoint to post the data
+  const apiURL = `http://localhost:3333/smurfs/${smurfId}`;
+
+  // Post the data
+  axios
+    .delete(apiURL)
+    .then((response) => {
+      dispatch({
+        type: DATA_LOAD_SUCCESS,
+        payload: response.data,
+      });
+    })
+    .catch((error) => {
+      alert(error);
     });
 };

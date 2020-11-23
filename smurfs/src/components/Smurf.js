@@ -1,35 +1,24 @@
 // Import Dependencies
-import React from "react";
-import axios from "axios";
-import { connect } from "react-redux";
-
-// Import Actions
-import { loadSmurfs } from "../store/actions";
+import React, { useEffect } from "react";
+import { gsap } from "gsap";
 
 function Smurf(props) {
+  // Add some entrance animation
+  useEffect(() => {
+    gsap.from(`#smurf-${props.smurf.id}`, { opacity: 0, y: 100, duration: 1 });
+  }, [props.smurf.id]);
+
   // Function to remove smurf
   const removeSmurf = () => {
-    // Delete smurf
-    const apiURL = `http://localhost:3333/smurfs/${props.smurf.id}`;
-
-    axios
-      .delete(apiURL)
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-
-    props.loadSmurfs();
+    props.deleteSmurf(props.smurf.id);
   };
 
   return (
-    <li className='animate__animated animate__bounce'>
+    <li id={`smurf-${props.smurf.id}`}>
       {props.smurf.name} {props.smurf.id}
       <button onClick={removeSmurf}>Delete</button>
     </li>
   );
 }
 
-export default connect("", { loadSmurfs })(Smurf);
+export default Smurf;
